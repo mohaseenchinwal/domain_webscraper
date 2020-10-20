@@ -25,7 +25,7 @@ with open(filepath) as fp:
    line = fp.readline()
    cnt = 1
    while line:
-       #print("{}".format(cnt, line.strip()))
+       
        headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:54.0) Gecko/20100101 Firefox/54.0","Connection":"close","Accept-Language":"en-US,en;q=0.5","Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8","Upgrade-Insecure-Requests":"1"}
        try:
           response = requests.get(line.strip(), headers=headers, timeout=15, verify=False)
@@ -49,12 +49,12 @@ with open(filepath) as fp:
 	          if t.parent.name not in blacklist:
 		          output += '{} '.format(t)
           output = re.sub('\n|[[\d+\]]', ' ', output)
-          #print(output) 
+           
           print (line.rstrip())
           print (response) 
           cout=print(len(output))          
-          #line = fp.readline()
-          #cnt += 1
+          
+          
           if "ERROR: The requested URL could not be retrieved" in output:
               stat='IN ACTIVE'
           elif "This domain is registered through Routedge" in output:
@@ -94,11 +94,11 @@ with open(filepath) as fp:
           df = df.append({'Url' : line.strip(), 'Content' : output,  'wordcount' : len(output), 'httpstatus' : response, 'status': stat}, ignore_index=True)
           print(df)
           line = fp.readline()
-          df.to_csv('webstat2.csv', encoding='utf-8')
+          df.to_csv('webstat.csv', encoding='utf-8')
        except:
-           #print ("exception occured for",line)
+           
            df = df.append({'Url' : line, 'Content' : 'Exception',  'wordcount' : 'Exception', 'httpstatus' : 'Exception', 'status': 'Exception'}, ignore_index=True)
            line=next(fp)
-           df.to_csv('webstat2.csv', encoding='utf-8')
+           df.to_csv('webstat.csv', encoding='utf-8')
            pass
  
