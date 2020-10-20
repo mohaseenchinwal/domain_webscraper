@@ -24,12 +24,13 @@ print("Empty Dataframe ", df)
 #Raise an exception for ssl checks fail skip the line in the input file this exception allows the scripts from crashing.
 
 
+df.to_csv('webstat.csv', encoding='utf-8')
+
 filepath = 'domains.txt'
 with open(filepath) as fp:
    line = fp.readline()
    cnt = 1
    while line:
-       
        headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:54.0) Gecko/20100101 Firefox/54.0","Connection":"close","Accept-Language":"en-US,en;q=0.5","Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8","Upgrade-Insecure-Requests":"1"}
        try:
           response = requests.get(line.strip(), headers=headers, timeout=15, verify=False)
@@ -48,17 +49,13 @@ with open(filepath) as fp:
           'style',
 	  # there may be more elements you don't want, such as "style", etc.
           ]
-
           for t in result:
 	          if t.parent.name not in blacklist:
 		          output += '{} '.format(t)
-          output = re.sub('\n|[[\d+\]]', ' ', output)
-           
+          output = re.sub('\n|[[\d+\]]', ' ', output)           
           print (line.rstrip())
           print (response) 
-          cout=print(len(output))          
-          
-          
+          cout=print(len(output))                
           if "ERROR: The requested URL could not be retrieved" in output:
               stat='IN ACTIVE'
           elif "This domain is registered through Routedge" in output:
@@ -99,16 +96,11 @@ with open(filepath) as fp:
           print(df)
           line = fp.readline()
           df.to_csv('webstat.csv', encoding='utf-8')
-       except:
-           
+       except:         
            df = df.append({'Url' : line, 'Content' : 'Exception',  'wordcount' : 'Exception', 'httpstatus' : 'Exception', 'status': 'Exception'}, ignore_index=True)
            line=next(fp)
            df.to_csv('webstat.csv', encoding='utf-8')
            pass
-           
-
-
-
 
 
 
