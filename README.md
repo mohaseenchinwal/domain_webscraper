@@ -24,7 +24,6 @@ print("Empty Dataframe ", df)
 #Raise an exception for ssl checks fail skip the line in the input file this exception allows the scripts from crashing.
 
 
-
 df.to_csv('webstat2.csv', encoding='utf-8')
 
 filepath = 'domains.txt'
