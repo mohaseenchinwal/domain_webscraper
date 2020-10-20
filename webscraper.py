@@ -8,11 +8,9 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 from bs4 import BeautifulSoup
 
 
-#pd.set_option('display.max_colwidth', -1)
+
 pd.set_option('display.max_rows', 10000000)
-#pd.set_option('display.max_columns', 10000000)
-#pd.set_option('display.width', None)
-#pd.set_option('display.max_colwidth', 1000)
+
 
 
 df = pd.DataFrame(columns = ['Url', 'Content', 'wordcount', 'httpstatus', 'status'])
